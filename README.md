@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
- ```
+```
 
 ```python
 INSTALLED_APPS = [
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework'
 ```
 
-# Creation de la BDD 
+# Creation de la BDD
 
 Le model représente les différents champs que l'on veut avoir
 
@@ -68,11 +68,11 @@ Pour creer une version que l'on pourra migreer vers notre DB :
 
 > python manage.py makemigrations leads
 
-puis envoyer les donnéees vers la DB : 
+puis envoyer les donnéees vers la DB :
 
 > python manage.py migrate
 
-Dans le dossier leads , creer un fichier serializers.py et ajoutez 
+Dans le dossier leads , creer un fichier serializers.py et ajoutez
 
 ```python
 from rest_framework import serializers
@@ -81,13 +81,13 @@ from leads.models import Lead
 # Lead Serializer
 class LeadSerializer(serializers.ModelSerializer)
     class Meta:
-        model= Lead 
+        model= Lead
         fields = '__all__'
 ```
 
 # Creation de l'api
 
-Creer un fichier api.py dans le dossier leads et ajoutez 
+Creer un fichier api.py dans le dossier leads et ajoutez
 
 ```python
 from leads.models import Lead
@@ -136,11 +136,11 @@ router.register('api/leads', LeadViewSet, 'leads')
 urlpatterns = router.urls
 ```
 
-Lancez le serveur : 
+Lancez le serveur :
 
 > python manage.py runserver
 
-## Accedez aux données via Postman 
+## Accedez aux données via Postman
 
 https://www.getpostman.com/downloads/
 
@@ -152,11 +152,11 @@ Utilisez la méthode Post pour ajoutez des données , exemple :
 
 ```json
 {
-    "id": 2,
-    "name": "Jordan Fievet",
-    "email": "jordanfievet@outlook.fr",
-    "message": "Please contact Jordan",
-    "created_at": "2019-02-03T09:44:34.255195Z"
+  "id": 2,
+  "name": "Jordan Fievet",
+  "email": "jordanfievet@outlook.fr",
+  "message": "Please contact Jordan",
+  "created_at": "2019-02-03T09:44:34.255195Z"
 }
 ```
 
@@ -192,70 +192,70 @@ Puis installons babel
 
 Puis React
 
->  npm i react react-dom prop-types
+> npm i react react-dom prop-types
 
 Pour utiliser les presets et plugin de babel nous devon creer un fichier a la racine du projet
 
 > .babelrc
 
-dans ce fichier ajoutez : 
+dans ce fichier ajoutez :
 
 ```json
 {
-"presets": ["@babel/preset-env", "@babel/preset-react"],
-"plugins": ["transform-class-properties"]
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": ["transform-class-properties"]
 }
 ```
 
 Ensuite creer un fichier webpack.config.js a la racine du projet et ajoutez dans ce fichier
 
 ```json
-module.exports = {
-    module: {
-        rules : [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loarder: "babel-loader"
-                }
-            }
-        ]
-    }
-}
+(module.exports = {
+  "module": {
+    "rules": [
+      {
+        "test": /\.js$/,
+        "exclude": /node_modules/,
+        "use": {
+          "loarder": "babel-loader"
+        }
+      }
+    ]
+  }
+})
 ```
 
-dans package.json remplacer 
+dans package.json remplacer
 
 > "test": "echo \"Error: no test specified\" && exit 1"
 
- par 
+par
 
 > "dev" : "webpack --mode development --watch ./leadmanager/frontend/src/index.js --output ./leadmanager/frontend/static/frontend/main.js"
 
-et ajoutez en dessous 
+et ajoutez en dessous
 
 > "build" : "webpack --mode production ./leadmanager/frontend/src/index.js --output ./leadmanager/frontend/static/frontend/main.js"
 
-creer ensuite le fichier index.js et importer le App.js component dans ce fichier 
+creer ensuite le fichier index.js et importer le App.js component dans ce fichier
 
 ```js
-import App from './components/App';
+import App from "./components/App";
 ```
 
 creer un fichier App.js dans components et importer react
 
 ```js
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 class App extends Component {
-    render() {
-        return <h1>Hello world</h1>;
-    }
+  render() {
+    return <h1>Hello world</h1>;
+  }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById("app"));
 ```
 
 creer un fichier html dans templates/frontend et ajoutez ces lignes :
@@ -327,26 +327,35 @@ Dans le dossier Component creer un dossier layout contenant un fichier Header.js
 Ajoutez ce code dans le fichier Header.js
 
 ```javascript
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export class Header extends Component {
   render() {
     return (
-        <nav className="navbar navbar-expand-sm navbar-light bg-light">
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a className="navbar-brand" href="#">Lead manager</a>
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          </ul>
+          <a className="navbar-brand" href="#">
+            Lead manager
+          </a>
+          <ul className="navbar-nav mr-auto mt-2 mt-lg-0" />
         </div>
       </nav>
-    )
+    );
   }
 }
 
-export default Header
+export default Header;
 ```
 
 Puis importez le dans votre App.js
@@ -354,18 +363,92 @@ Puis importez le dans votre App.js
 ```javascript
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Header from "./layout/header"
+import Header from "./layout/header";
 
 class App extends Component {
-    render() {
-        return (
-            <Header />
-        )
-    }
+  render() {
+    return <Header />;
+  }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById("app"));
 ```
 
-Creez 3 nouveaux components dans components/leads
- 
+Creez 3 nouveaux components dans components/leads (Dashboard,Form,Leads)
+
+dans Dashboard.js
+
+```javascript
+import React, { Fragment } from "react";
+import Form from "./Form";
+import Leads from "./Leads";
+
+export default function Dashboard() {
+  return (
+    <Fragment>
+      <Form />
+      <Leads />
+    </Fragment>
+  );
+}
+```
+
+Dans Form
+
+```javascript
+import React, { Component } from "react";
+
+export class Form extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Add Form</h1>
+      </div>
+    );
+  }
+}
+
+export default Form;
+```
+
+Dans Leads
+
+```javascript
+import React, { Component } from "react";
+
+export class Leads extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Leads List</h1>
+      </div>
+    );
+  }
+}
+
+export default Leads;
+```
+
+Puis importez les dans App.js
+
+```javascript
+import React, { Component, Fragment } from "react";
+import ReactDOM from "react-dom";
+import Header from "./layout/header";
+import Dashboard from "./leads/Dashboard";
+
+class App extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Header />
+        <div className="container">
+          <Dashboard />
+        </div>
+      </Fragment>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("app"));
+```
