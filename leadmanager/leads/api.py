@@ -9,4 +9,4 @@ class LeadViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
-    serialiser_class = LeadSerializer
+    serializer_class = LeadSerializer

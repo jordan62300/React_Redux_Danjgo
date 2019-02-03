@@ -139,3 +139,49 @@ urlpatterns = router.urls
 Lancez le serveur : 
 
 > python manage.py runserver
+
+## Accedez aux données via Postman 
+
+https://www.getpostman.com/downloads/
+
+dans GET rentrez l'url de votre api après avoir lancé votre serveur pour lire vos données
+
+http://localhost:8000/api/leads/
+
+Utilisez la méthode Post pour ajoutez des données , exemple :
+
+```json
+{
+    "id": 2,
+    "name": "Jordan Fievet",
+    "email": "jordanfievet@outlook.fr",
+    "message": "Please contact Jordan",
+    "created_at": "2019-02-03T09:44:34.255195Z"
+}
+```
+
+# frontend
+
+entrer dans l'environnement virtuel
+
+> pipenv shell
+
+puis creer une app
+
+> cd leadmanager
+
+> python manage.py startapp frontend
+
+puis creer un dossier components
+
+> mkdir -p ./frontend/src/components
+
+et deux dossiers static et templates ayant un dossier frontend
+
+> mkdir -p ./frontend/{static,templates}/frontend
+
+Installons webpack
+
+> npm init -y
+
+> npm i -D webpack webpack-cli
