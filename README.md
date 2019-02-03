@@ -185,3 +185,116 @@ Installons webpack
 > npm init -y
 
 > npm i -D webpack webpack-cli
+
+Puis installons babel
+
+> npm i -D @babel/core babel-loader @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties
+
+Puis React
+
+>  npm i react react-dom prop-types
+
+Pour utiliser les presets et plugin de babel nous devon creer un fichier a la racine du projet
+
+> .babelrc
+
+dans ce fichier ajoutez : 
+
+```json
+{
+"presets": ["@babel/preset-end", "@babel/preset-react"],
+"plugins": ["transform-class-properties"]
+}
+```
+
+Ensuite creer un fichier webpack.conf.js a la racine du projet et ajoutez dans ce fichier
+
+```json
+module.exports = {
+    module: {
+        rules : [
+            {
+                test: /\.js$/,
+                exclude: /nodde_modules/,
+                use: {
+                    loarder: "babel-loader"
+                }
+            }
+        ]
+    }
+}
+```
+
+dans package.json remplacer 
+
+> "test": "echo \"Error: no test specified\" && exit 1"
+
+ par 
+
+> "dev" : "webpack --mode development ./leadmanager/frontend/src/index.js --output ./leadmanager/frontend/static/frontend/main.js"
+
+et ajoutez en dessous 
+
+> "build" : "webpack --mode production ./leadmanager/frontend/src/index.js --output ./leadmanager/frontend/static/frontend/main.js"
+
+creer ensuite le fichier index.js et importer le App.js component dans ce fichier 
+
+```js
+import App from './components/App';
+```
+
+creer un fichier App.js dans components et importer react
+
+```js
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+class App extends Component {
+    render() {
+        return <h1>Hello world</h1>;
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('app'));
+```
+
+creer un fichier html dans templates/frontend et ajoutez ces lignes :
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lead Manager</title>
+    <link href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+</head>
+<body>
+    <div id="app"></div>
+    {% load static %}
+    <script src="{% static "frontend/main.js" %}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+dans le fichier settings.py se trouvant dans leadmanager ajoutez l'app frontend :
+
+```json
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'leads',
+    'rest_framework'
+    'frontend'
+]
+```
+
+ 
