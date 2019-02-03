@@ -72,4 +72,70 @@ puis envoyer les donnéees vers la DB :
 
 > python manage.py migrate
 
-.
+Dans le dossier leads , creer un fichier serializers.py et ajoutez 
+
+```python
+from rest_framework import serializers
+from leads.models import Lead
+
+# Lead Serializer
+class LeadSerializer(serializers.ModelSerializer)
+    class Meta:
+        model= Lead 
+        fields = '__all__'
+```
+
+# Creation de l'api
+
+Creer un fichier api.py dans le dossier leads et ajoutez 
+
+```python
+from leads.models import Lead
+from rest_framework import viewsets , permissions
+from .serializers import LeadSerialiser
+```
+
+## Viewsets
+
+https://www.django-rest-framework.org/api-guide/viewsets/
+
+Le viewset permet de creer une CRUD API sans avoir a spécifier les méthodes pour les fonctionnalitées
+
+Pour l'instant nous allons donner l'acces de cette api a tout le monde
+
+Dans le fichier api.py ajoutez :
+
+```python
+class LeadViewSet(viewsets.ModelViewSet):
+    queryset = Lead.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serialiser_class = LeadSerializer
+```
+
+Creons ensuite l'url, dans le fichier leadmanager/urls.py changez :
+
+```python
+from django.urls import path , include
+
+urlpatterns = [
+    path('', include('leads.urls')),
+]
+```
+
+Ensuite creons le fichier urls se trouvant dans leads
+
+```python
+from rest_framework import routers
+from .api import LeadViewSet
+
+router = routers.DefaultRouter()
+router.register('api/leads', LeadViewSet, 'leads')
+
+urlpatterns = router.urls
+```
+
+Lancez le serveur : 
+
+> python manage.py runserver
