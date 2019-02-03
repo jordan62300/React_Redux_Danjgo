@@ -1,13 +1,14 @@
 module.exports = {
-    module: {
-        rules : [
-            {
-                test: /\.js$/,
-                exclude: /nodde_modules/,
-                use: {
-                    loarder: "babel-loader"
-                }
-            }
-        ]
-    }
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+    ]
+  }
 }
+

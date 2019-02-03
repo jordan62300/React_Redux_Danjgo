@@ -202,7 +202,7 @@ dans ce fichier ajoutez :
 
 ```json
 {
-"presets": ["@babel/preset-end", "@babel/preset-react"],
+"presets": ["@babel/preset-env", "@babel/preset-react"],
 "plugins": ["transform-class-properties"]
 }
 ```
@@ -215,7 +215,7 @@ module.exports = {
         rules : [
             {
                 test: /\.js$/,
-                exclude: /nodde_modules/,
+                exclude: /node_modules/,
                 use: {
                     loarder: "babel-loader"
                 }
@@ -297,4 +297,28 @@ INSTALLED_APPS = [
 ]
 ```
 
+Pour charger les templates allez dans leadmanager/frontend et ajoutez :
+
+```python
+    def index(request):
+     return render(request, 'frontend/index.html')
+```
+
+Une fois la vue créé attachez un url a cette vue
+
+dans le dossier leadmanager/frontend creer un fichier urls.py
+
+```python
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('',views.index)
+]
+```
+
+dans le fichier urls.py se trouvant dans leadmanager/leadmanager ajoutez:
+
+```Python
+path('', include('frontend.urls')),
+```
  
