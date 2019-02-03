@@ -207,7 +207,7 @@ dans ce fichier ajoutez :
 }
 ```
 
-Ensuite creer un fichier webpack.conf.js a la racine du projet et ajoutez dans ce fichier
+Ensuite creer un fichier webpack.config.js a la racine du projet et ajoutez dans ce fichier
 
 ```json
 module.exports = {
@@ -231,7 +231,7 @@ dans package.json remplacer
 
  par 
 
-> "dev" : "webpack --mode development ./leadmanager/frontend/src/index.js --output ./leadmanager/frontend/static/frontend/main.js"
+> "dev" : "webpack --mode development --watch ./leadmanager/frontend/src/index.js --output ./leadmanager/frontend/static/frontend/main.js"
 
 et ajoutez en dessous 
 
@@ -321,4 +321,51 @@ dans le fichier urls.py se trouvant dans leadmanager/leadmanager ajoutez:
 ```Python
 path('', include('frontend.urls')),
 ```
+
+Dans le dossier Component creer un dossier layout contenant un fichier Header.js
+
+Ajoutez ce code dans le fichier Header.js
+
+```javascript
+import React, { Component } from 'react'
+
+export class Header extends Component {
+  render() {
+    return (
+        <nav className="navbar navbar-expand-sm navbar-light bg-light">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a className="navbar-brand" href="#">Lead manager</a>
+          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+          </ul>
+        </div>
+      </nav>
+    )
+  }
+}
+
+export default Header
+```
+
+Puis importez le dans votre App.js
+
+```javascript
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import Header from "./layout/header"
+
+class App extends Component {
+    render() {
+        return (
+            <Header />
+        )
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('app'));
+```
+
+Creez 3 nouveaux components dans components/leads
  
